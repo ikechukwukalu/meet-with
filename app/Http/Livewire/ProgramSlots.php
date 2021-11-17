@@ -20,25 +20,26 @@ class ProgramSlots extends Component
     public $programs;
 
     protected $rules = [
-        'name' => ['required', 'string', 'max:150'],
-        'start_date' => ['required', 'date_format:Y-m-d\TH:i'],
+        'meeting_key' => ['required', 'string', 'exists:meetings'],
+        'program_key' => ['required', 'string', 'exists:programs'],
         'ends' => ['required', 'date_format:Y-m-d\TH:i']
     ];
 
     protected $messages = [
-        'name.required' => 'The :attribute cannot be empty.',
-        'name.string' => 'The :attribute format is not valid.',
-        'name.max' => 'The :attribute length cannot exceed 150.',
+        'meeting_key.required' => 'The :attribute cannot be empty.',
+        'meeting_key.date_format' => 'The :attribute format is not valid.',
+        'meeting_key.exists' => 'The :attribute cannot be found.',
 
-        'start_date.required' => 'The :attribute cannot be empty.',
-        'start_date.date_format' => 'The :attribute format is not valid.',
+        'program_key.required' => 'The :attribute cannot be empty.',
+        'program_key.date_format' => 'The :attribute format is not valid.',
+        'program_key.exists' => 'The :attribute cannot be found.',
 
         'ends.required' => 'The :attribute cannot be empty.',
         'ends.date_format' => 'The :attribute format is not valid.'
     ];
     protected $validationAttributes = [
-        'name' => 'Meeting name',
-        'start_date' => 'Start date and time',
+        'meeting_key' => 'Meeting',
+        'program_key' => 'Program',
         'ends' => 'End date and time'
     ];
 
@@ -73,7 +74,8 @@ class ProgramSlots extends Component
     }
 
     public function add_slot() {
-
+        $validatedData = $this->validate();
+        
     }
 
     public function render()
