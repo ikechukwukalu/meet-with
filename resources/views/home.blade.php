@@ -2,19 +2,14 @@
 
 @section('content')
 <div class="container">
+    @livewire('meetings')
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+            <div class="card mt-3">
+                <div class="card-header">{{ __('Slots') }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                    @livewire('program-slots')
                 </div>
             </div>
         </div>
