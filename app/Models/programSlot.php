@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class programSlot extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'key',
+        'meeting_key',
+        'program_key',
+        'begins',
+        'ends'
+    ];
 }

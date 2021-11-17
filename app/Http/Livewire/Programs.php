@@ -9,7 +9,6 @@ class Programs extends Component
 {
     public $name;
     public $meeting_name;
-
     public $meeting_key;
 
     protected $rules = [
