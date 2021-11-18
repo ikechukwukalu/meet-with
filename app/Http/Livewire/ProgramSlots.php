@@ -84,9 +84,9 @@ class ProgramSlots extends Component
     public function add_slot() {
         $validatedData = $this->validate();
 
-        if($validatedData['ends'] < date("Y-m-d H:i:s", strtotime($this->begins))) {
-            session()->flash('fail', 'End date cannot have a lesser than the first available date');
-        }elseif(date("Y-m-d H:i:s", strtotime($this->begins)) == $validatedData['ends']) {
+        if($validatedData['ends'] < date("Y-m-d\TH:i", strtotime($this->begins))) {
+            session()->flash('fail', 'Start date must be earlier than the first available date');
+        }elseif(date("Y-m-d\TH:i", strtotime($this->begins)) == $validatedData['ends']) {
             session()->flash('fail', 'End date cannot have the same values as the first available date');
         } else {
             $validatedData['begins'] = $this->begins;

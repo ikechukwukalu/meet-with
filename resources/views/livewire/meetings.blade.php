@@ -24,25 +24,25 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="{{ __('name') }}">{{ __('Name') }}:</label>
-                                <input class="form-control @error($name) is-invalid @enderror" type="text"
+                                <input class="form-control @error('name') is-invalid @enderror" type="text"
                                     wire:model="name" />
-                                @error($name) <span class="error">{{ $message }}</span> @enderror
+                                @error('name') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="{{ __('start_date') }}">{{ __('Start Date') }}:</label>
-                                <input class="form-control @error($start_date) is-invalid @enderror"
+                                <input class="form-control @error('start_date') is-invalid @enderror"
                                     type="datetime-local" wire:model="start_date" />
-                                @error($start_date) <span class="error">{{ $message }}</span> @enderror
+                                @error('start_date') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="{{ __('end_date') }}">{{ __('End Date') }}:</label>
-                                <input class="form-control @error($end_date) is-invalid @enderror" type="datetime-local"
+                                <input class="form-control @error('end_date') is-invalid @enderror" type="datetime-local"
                                     wire:model="end_date" />
-                                @error($end_date) <span class="error">{{ $message }}</span> @enderror
+                                @error('end_date') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="col-md-6 mx-auto">

@@ -16,10 +16,10 @@
         </div>
     </div>
     <p>
-        @error($name) <span class="error">{{ $message }}</span> @enderror
+        @error('name') <span class="error">{{ $message }}</span> @enderror
     </p>
     <form class="form-inline" wire:submit.prevent="addProgram">
-        <input type="text" class="form-control @error($name) is-invalid @enderror pr-2 " wire:model="name"
+        <input type="text" class="form-control @error('name') is-invalid @enderror pr-2 " wire:model="name"
             placeholder="Program Name">&nbsp;
         <button type="submit" class="btn btn-primary" wire:target="addProgram" wire.loading.attr="disabled">
             <span wire:loading="" wire:target="addProgram">

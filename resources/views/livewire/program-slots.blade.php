@@ -24,27 +24,27 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="{{ __('meeting_key') }}">{{ __('Meeting') }}:</label>
-                                <select class="form-control @error($meeting_key) is-invalid @enderror" wire:model="meeting_key"
+                                <select class="form-control @error('meeting_key') is-invalid @enderror" wire:model="meeting_key"
                                     wire:change="fetch_programs">
                                     <option selected>Choose Meeting</option>
                                     @foreach($meetings as $meeting)
                                     <option value="{{ $meeting->key }}">{{ $meeting->name }}</option>
                                     @endforeach
                                 </select>
-                                @error($meeting_key) <span class="error">{{ $message }}</span> @enderror
+                                @error('meeting_key') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="{{ __('program_key') }}">{{ __('Programs') }}:</label>
-                                <select class="form-control @error($program_key) is-invalid @enderror" wire:model="program_key"
+                                <select class="form-control @error('program_key') is-invalid @enderror" wire:model="program_key"
                                     wire:target="fetch_programs" wire.loading.attr="disabled">
                                     <option selected>Choose Program</option>
                                     @foreach($programs as $program)
                                     <option value="{{ $program->key }}">{{ $program->name }}</option>
                                     @endforeach
                                 </select>
-                                @error($program_key) <span class="error">{{ $message }}</span> @enderror
+                                @error('program_key') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -63,10 +63,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="{{ __('ends') }}">{{ __('End Period') }}:</label>
-                                <input class="form-control @error($ends) is-invalid @enderror" type="datetime-local"
+                                <input class="form-control @error('ends') is-invalid @enderror" type="datetime-local"
                                     wire:target="fetch_programs" wire.loading.attr="disabled" wire:model="ends"
                                     min="{{ $min_date }}" max="{{ $max_date }}" />
-                                @error($ends) <span class="error">{{ $message }}</span> @enderror
+                                @error('ends') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
                         <div class="col-md-6 mx-auto">
