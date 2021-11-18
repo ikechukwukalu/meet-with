@@ -57,6 +57,7 @@ class Meetings extends Component
                 if( $meeting->save() ) {
                     $this->reset();
                     session()->flash('success', 'A new meeting has been created');
+                    $this->emit('meetingCreated');
                 }
                 else
                     session()->flash('fail', 'Unable to create a new meeting');

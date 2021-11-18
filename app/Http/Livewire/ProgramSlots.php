@@ -38,17 +38,24 @@ class ProgramSlots extends Component
         'ends.required' => 'The :attribute cannot be empty.',
         'ends.date_format' => 'The :attribute format is not valid.'
     ];
+
     protected $validationAttributes = [
         'meeting_key' => 'Meeting',
         'program_key' => 'Program',
         'ends' => 'End date and time'
     ];
 
+    protected $listeners = ['meetingCreated'];
+
     public function mount()
     {
         $this->programs = [];
         $this->from = "00-00-00 00:00";
         $this->to = "00-00-00 00:00";
+    }
+
+    public function meetingCreated(): bool {
+        return true;
     }
 
     public function fetch_programs() {
@@ -104,6 +111,12 @@ class ProgramSlots extends Component
 
     public function render()
     {
-        return view('livewire.program-slots', ['meetings' => meeting::whereNotNull('free_from')->get()]);
+        return view('livewire.program-slots', [
+            'meetings' => meeting::whereNotNull('free_from')->get(),
+            'slots' => programSlot::join('meetings', 'meetings.key', '=', 'program_slots.meeting_key')
+                        ->join('programs', 'programs.key', '=', 'program_slots.program_key')
+                        ->select('program_slots.*', 'meetings.name as meeting_name', 'programs.name as program_name')
+                        ->get()
+        ]);
     }
 }
