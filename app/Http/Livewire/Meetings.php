@@ -44,6 +44,8 @@ class Meetings extends Component
 
         if($validatedData['start_date'] == $validatedData['end_date']) {
             session()->flash('fail', 'Start date and End date cannot have the same values');
+        }elseif(date('Y-m-d', strtotime($validatedData['start_date'])) > date('Y-m-d', strtotime($validatedData['end_date']))){
+            session()->flash('fail', 'Start date must be a date before the End date');
         } else {
             $validatedData['free_from'] = $validatedData['start_date'];
             $validatedData['key'] = hash('sha1', md5(microtime().rand()));

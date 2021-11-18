@@ -1,16 +1,16 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            @if (session()->has('success'))
+            @if (session()->has('p_success'))
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Success!</strong> {{ session('success') }}
+                <strong>Success!</strong> {{ session('p_success') }}
             </div>
             @endif
-            @if (session()->has('fail'))
+            @if (session()->has('p_fail'))
             <div class="alert alert-danger alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Failed!</strong> {{ session('fail') }}
+                <strong>Failed!</strong> {{ session('p_fail') }}
             </div>
             @endif
         </div>
@@ -37,8 +37,7 @@
                 <ul class="list-group">
                     @forelse($programs as $program)
                     <li class="list-group-item">
-                        <b>{{ $loop->iteration }}.</b> {{ $program->name }} <button type="button"
-                            class="btn btn-clear"></button>
+                        <b>{{ $loop->iteration }}.</b> {{ $program->name }}
                     </li>
                     @empty
                     <p align="center">No Program has be added to this meeting</p>

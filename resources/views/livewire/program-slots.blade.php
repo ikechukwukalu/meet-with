@@ -46,12 +46,18 @@
                 <div class="form-group">
                     <label for="">{{ __('Available Time Range') }}:</label>
                     <input class="form-control"
-                        value="{{ $from }} to {{ $to }}" readonly />
+                        value="From: {{ $from }}, To: {{ $to }}" readonly />
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label for="{{ __('ends') }}">{{ __('End Date') }}:</label>
+                    <label for="{{ __('') }}">{{ __('Start Period') }}:</label>
+                    <input class="form-control" type="text" value="{{ date('j M, Y', strtotime($from)) }} {{ date('g:i a', strtotime($from)) }}" readonly />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ __('ends') }}">{{ __('End Period') }}:</label>
                     <input class="form-control @error($ends) is-invalid @enderror" type="datetime-local"
                         wire:target="fetch_programs" wire.loading.attr="disabled" wire:model="ends"
                         min="{{ $min_date }}" max="{{ $max_date }}" />

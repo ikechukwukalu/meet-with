@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 use App\Models\meeting;
 use App\Models\program;
+use App\Models\programSlot;
 
 use Livewire\Component;
 
@@ -20,8 +21,8 @@ class ProgramSlots extends Component
     public $programs;
 
     protected $rules = [
-        'meeting_key' => ['required', 'string', 'exists:meetings'],
-        'program_key' => ['required', 'string', 'exists:programs'],
+        'meeting_key' => ['required', 'string', 'exists:meetings,key'],
+        'program_key' => ['required', 'string', 'exists:programs,key'],
         'ends' => ['required', 'date_format:Y-m-d\TH:i']
     ];
 
@@ -67,7 +68,7 @@ class ProgramSlots extends Component
     }
 
     private function default_state() {
-        $this->reset(['min_date', 'max_date', 'begins', 'ends']);
+        $this->reset(['min_date', 'max_date', 'begins', 'ends', 'meeting_key', 'program_key']);
         $this->programs = [];
         $this->from = "00-00-00 00:00";
         $this->to = "00-00-00 00:00";
@@ -75,7 +76,30 @@ class ProgramSlots extends Component
 
     public function add_slot() {
         $validatedData = $this->validate();
-        
+
+        if($validatedData['ends'] < date("Y-m-d H:i:s", strtotime($this->begins))) {
+            session()->flash('fail', 'End date cannot have a lesser than the first available date');
+        }elseif(date("Y-m-d H:i:s", strtotime($this->begins)) == $validatedData['ends']) {
+            session()->flash('fail', 'End date cannot have the same values as the first available date');
+        } else {
+            $validatedData['begins'] = $this->begins;
+            $validatedData['key'] = hash('sha1', md5(microtime().rand()));
+            try {
+                $programSlot = new programSlot();
+                foreach($validatedData as $key => $v) {
+                    $programSlot->{$key} = $v;
+                }
+                if( $programSlot->save() ) {
+                    meeting::where('key', $this->meeting_key)->update(["free_from" => $this->ends]);
+                    $this->default_state();
+                    session()->flash('success', 'A new slot has been created');
+                }
+                else
+                    session()->flash('fail', 'Unable to create a new slot');
+            } catch (Exception $e) {
+                session()->flash('fail', 'Oppss, something went wrong!');
+            }
+        }
     }
 
     public function render()

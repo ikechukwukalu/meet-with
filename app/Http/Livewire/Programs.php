@@ -42,12 +42,12 @@ class Programs extends Component
             }
             if( $program->save() ) {
                 $this->reset(['name']);
-                session()->flash('success', 'A new program has been created');
+                session()->flash('p_success', 'A new program has been created');
             }
             else
-                session()->flash('fail', 'Unable to create a new program');
+                session()->flash('p_fail', 'Unable to create a new program');
         } catch (Exception $e) {
-            session()->flash('fail', 'Oppss, something went wrong!');
+            session()->flash('p_fail', 'Oppss, something went wrong!');
         }
     }
 
